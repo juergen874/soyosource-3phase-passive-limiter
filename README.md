@@ -9,15 +9,15 @@ Standard Soyosource limiters typically monitor only one phase. This modification
 The solution uses an **external passive filter** to sum AC current signals from different phases. Due to the phase shift (120°) and circuit characteristics, signals are attenuated differently. This is compensated for by adjusting the number of wire loops through the sensor.
 
 ## Results by "menergie" (ochsnerj)
-Based on empirical measurements and simulations by user **menergie** from the Akkudoktor.net forum:
+Based on calculations and empirical measurements and simulations by user **menergie** from the Akkudoktor.net forum:
 
 | Phase | Measured Attenuation | Sensor Calibration (Loops) | Resulting Contribution |
 | :--- | :--- | :--- | :--- |
-| **L1** | 1/2 (50%) | 1 Loop | 0.5 units |
-| **L2** | 1/4 (25%) | 2 Loops | 0.5 units |
+| **L1** | 1/2 (100%) | 1 Loop | 1 units |
+| **L2** | 1/4 (50%) | 2 Loops | 1 units |
 
 **Summary of Findings:**
-- **Attenuation:** The actual circuit attenuates L1 to 1/2 and L2 to 1/4 of the original signal strength.
+- **Attenuation:** The actual circuit attenuates L1 to 1 and L2 to 1/2 of the original signal strength.
 - **Compensation:** By looping the L1 wire **once** and the L2 wire **twice** through the Soyosource sensor, both phases contribute equally to the final reading.
 - **Display Scaling:** The Soyosource display will show approximately **50% of the actual total power** value across the phases. This is a consistent linear scaling factor.
 
@@ -37,10 +37,10 @@ The design consists of:
 2. Connect current transformers to L1 and L2.
 3. Pass the L1 output wire through the Soyosource sensor **once**.
 4. Pass the L2 output wire through the Soyosource sensor **twice**.
-5. Note that the power displayed on the Soyosource unit must be multiplied by 2 to get the real-world value.
+
 
 ## Credits
-This project is based on the research and implementation by user **menergie** (ochsnerj) on the [Akkudoktor.net forum](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/59).
+This project is based on my  research  (ochsnerj) on the [Akkudoktor.net forum](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/59).
 
 ---
 *Disclaimer: This is an experimental modification involving AC signals. Handle with care and ensure proper insulation.*
