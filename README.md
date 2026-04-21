@@ -13,8 +13,8 @@ Based on calculations and empirical measurements and simulations by user **mener
 
 | Phase | Measured Attenuation | Sensor Calibration (Loops) | Resulting Contribution |
 | :--- | :--- | :--- | :--- |
-| **L1** | 1/2 (100%) | 1 Loop | 1 units |
-| **L2** | 1/4 (50%) | 2 Loops | 1 units |
+| **L1** | 1 (100%) | 1 Loop | 1 units |
+| **L2** | 1/2 (50%) | 2 Loops | 1 units |
 
 **Summary of Findings:**
 - **Attenuation:** The actual circuit attenuates L1 to 1 and L2 to 1/2 of the original signal strength.
