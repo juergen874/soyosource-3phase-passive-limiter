@@ -19,7 +19,7 @@ Based on calculations and empirical measurements and simulations by user **mener
 **Summary of Findings:**
 - **Attenuation:** The actual circuit attenuates L1 to 1 and L2 to 1/2 of the original signal strength.
 - **Compensation:** By looping the L1 wire **once** and the L2 wire **twice** through the Soyosource sensor, both phases contribute equally to the final reading.
-- **Display Scaling:** The Soyosource display will show approximately **50% of the actual total power** value across the phases. This is a consistent linear scaling factor.
+
 
 ## Hardware Design
 The design consists of:
@@ -31,6 +31,7 @@ The design consists of:
 *   `schematics/passiv_filter.jpg`: Circuit diagram for the filter.
 *   `layout/streifenraster.jpg`: Stripboard assembly guide.
 *   `docs/masszeichnung.jpg`: Dimensional drawings for mechanical integration.
+*   `images/...`: several pictures
 
 ## How to Use
 1. Build the passive filter circuit on a stripboard according to the provided layout.
@@ -40,7 +41,7 @@ The design consists of:
 
 
 ## Credits
-This project is based on my  research  (ochsnerj) on the [Akkudoktor.net forum](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/59).
+This project is based on my  research on the [Akkudoktor.net forum](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/59).
 
 ---
 *Disclaimer: This is an experimental modification involving AC signals. Handle with care and ensure proper insulation.*
