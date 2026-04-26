@@ -1,61 +1,55 @@
-# Soyosource 3-Phase Passive Limiter Mod
-## The Problem:
-​Standard Soyosource limiters only measure a single phase. However, modern utility meters are balancing (saldierend) across all three phases. If your stove is running on Phase 2, but your inverter is only monitoring Phase 1, it won't ramp up production, and you'll end up paying for electricity despite having a full battery.
-​Digital solutions (like ESP32/RS485 bridges) often suffer from control latency (1–5 seconds delay). This results in "wasted" energy or unwanted grid export during fast load changes.
+# Soyosource 3-Phase Passive Limiter Mod (Analog Vector Summation)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/juergen874/soyosource-3phase-passive-limiter.svg)](https://github.com/juergen874/soyosource-3phase-passive-limiter/stargazers)
+[![Forum: Akkudoktor](https://img.shields.io/badge/Forum-Akkudoktor.net-blue)](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/)
 
-## 🌟 The Solution: Analog Vector Summation
-​
-​This circuit uses the laws of AC physics to "straighten out" the 120^\circ phase shifts between L1, L2, and L3. By using a passive RC-network, we shift the phase of the secondary sensors so they align perfectly with the primary phase.
-This repository contains a solution for adapting the single-phase **Soyosource Current Limiter Sensor** for use in a three-phase power system using an external passive filter circuit.
-The result is a real-time physical summation of your entire household's current, fed directly into the inverter's original sensor port.
+**English | [Deutsch](#de-nulleinspeisung-auf-3-phasen-mit-soyosource)**
 
-## 🌟 Key Advantages
-
-Zero Latency: No processing time, no Wi-Fi drops, no lag. The inverter reacts at the speed of light to any load change.
-Set and Forget: No firmware updates, no crashing, no API changes. It is purely hardware-based and autonomous.
-Low Budget: Replaces expensive Smart Meter Gateways with a handful of resistors and capacitors.
-Non-Invasive: No need to modify the inverter's internal communication or firmware. The original sensor input remains untouched.
-
-## Overview
-Standard Soyosource limiters typically monitor only one phase. This modification uses a passive summing and filtering circuit to combine signals from multiple phases (e.g., L1 and L2) into a single input that the Soyosource sensor can interpret.
-
-### Core Principle
-The solution uses an **external passive filter** to sum AC current signals from different phases. Due to the phase shift (120°) and circuit characteristics, signals are attenuated differently. This is compensated for by adjusting the number of wire loops through the sensor.
-
-## Results 
-Based on calculations and empirical measurements and simulations from the Akkudoktor.net forum:
-
-| Phase | Measured Attenuation | Sensor Calibration (Loops) | Resulting Contribution |
-| :--- | :--- | :--- | :--- |
-| **L1** | 1 (100%) | 1 Loop | 1 units |
-| **L2** | 1/2 (50%) | 2 Loops | 1 units |
-
-**Summary of Findings:**
-- **Attenuation:** The actual circuit attenuates L1 to 1 and L2 to 1/2 of the original signal strength.
-- **Compensation:** By looping the L1 wire **once** and the L2 wire **twice** through the Soyosource sensor, both phases contribute equally to the final reading.
-
-
-## Hardware Design
-The design consists of:
-1. **Passive Filter Circuit:** A network of resistors to sum the AC signals from current transformers.
-2. **Current Transformers:** Standard transformers used to pick up the phase current.
-3. **Stripboard Layout:** A compact implementation on a standard prototyping board.
-
-### Included Files (Work in Progress)
-*   `schematics/passiv_filter.jpg`: Circuit diagram for the filter.
-*   `layout/streifenraster.jpg`: Stripboard assembly guide.
-*   `docs/masszeichnung.jpg`: Dimensional drawings for mechanical integration.
-*   `images/...`: several pictures
-
-## How to Use
-1. Build the passive filter circuit on a stripboard according to the provided layout.
-2. Connect current transformers to L1 and L2.
-3. Pass the L1 output wire through the Soyosource sensor **once**.
-4. Pass the L2 output wire through the Soyosource sensor **twice**.
-
-
-## Credits
-This project is based on my research on the [Akkudoktor.net forum](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/59).
+A hardware-based solution for real-time 3-phase balancing (saldierend) with Soyosource GTIL inverters. This analog circuit solves the "single-phase limitation" without the latency of digital ESP32/RS485 solutions.
 
 ---
-*Disclaimer: This is an experimental modification involving AC signals. Handle with care and ensure proper insulation.*
+
+## 🌟 The Problem
+Standard Soyosource limiters only measure a **single phase**. However, utility meters balance across all three phases (L1+L2+L3).
+*   **The Issue:** If your inverter is on L1, but your stove is on L2, the inverter won't increase power. You pay for electricity while your battery stays full.
+*   **Digital Lag:** ESP32/RS485 bridges often have a 1–5 second delay, leading to grid export or unnecessary import during fast load changes.
+
+## 🚀 The Solution: Analog Vector Summation
+This circuit uses an **analog RC-network** to "straighten out" the 120° phase shifts between L1, L2, and L3. 
+*   **Real-Time:** No processing time. The inverter reacts at the speed of light.
+*   **Passive:** No firmware, no Wi-Fi, no crashes. It is purely autonomous hardware.
+*   **Accurate:** By using specific wire loops (1 Loop for L1, 2 Loops for L2), we compensate for physical attenuation to achieve a perfect 1:1 summation.
+
+### Results & Calibration
+| Phase | Signal Attenuation | Sensor Calibration | Effective Contribution |
+| :--- | :--- | :--- | :--- |
+| **L1** | 1 (100%) | **1 Loop** | 100% |
+| **L2** | 0.5 (50%) | **2 Loops** | 100% |
+
+---
+
+## <a name="de-nulleinspeisung-auf-3-phasen-mit-soyosource"></a>🇩🇪 Nulleinspeisung auf 3 Phasen mit Soyosource
+Eine rein hardwarebasierte Lösung für die 3-Phasen-Summierung bei Soyosource-Wechselrichtern.
+
+### Warum dieses Mod?
+*   **Saldierende Zähler:** Moderne Stromzähler verrechnen alle drei Phasen. Ein Standard-Soyosource sieht aber nur eine Phase. Dieses Projekt ermöglicht die echte Nulleinspeisung über alle Phasen hinweg.
+*   **Keine Latenz:** Im Gegensatz zu Tasmota, ESP32 oder Shelly-Lösungen gibt es keine Verzögerung durch WLAN oder Protokolle. Die Regelung erfolgt physikalisch in Echtzeit.
+*   **Kostengünstig:** Ersetzt teure Smart-Meter-Gateways durch einfache Widerstände und Kondensatoren.
+
+### Hardware-Aufbau
+1.  **Passiver Filter:** Ein Netzwerk aus Widerständen summiert die AC-Signale der Stromwandler (CTs).
+2.  **Kompensation:** Da die Schaltung das Signal von L2 dämpft, wird dies einfach durch **zwei Windungen** am Sensor ausgeglichen (L1 = 1 Windung, L2 = 2 Windungen).
+
+---
+
+## 🛠️ Hardware Design (WIP)
+*   `schematics/`: Circuit diagrams for the passive filter.
+*   `layout/`: Stripboard (Streifenraster) assembly guide.
+*   `images/`: Build photos and measurement results.
+
+## 🔗 Links & Resources
+*   **Discussion & Background:** [Akkudoktor.net Forum Thread](https://akkudoktor.net/t/soyosource-current-limiter-sensor-auf-drei-phasen-umbauen-mit-externer-schaltung/18355/)
+*   **Keywords:** Soyosource Limiter, 3-Phase Sensor, Zero Export, Nulleinspeisung, Balkonkraftwerk, Photovoltaik, Analog Summing, Current Transformer, Phase Shift Compensation.
+
+---
+*Disclaimer: This is an experimental modification involving AC signals. Always work with caution and ensure proper insulation.*
